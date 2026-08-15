@@ -11,9 +11,12 @@ def list_models():
     return ModelListResponse(models=[ModelInfo(**m) for m in registry.model_info()])
 
 
+DIAGNOSTICS_ALIASES = {"O_C": "O/C", "H_C": "H/C"}
+
+
 @router.get("/diagnostics/{target}")
 def diagnostics(target: str):
-    target = target.replace("_", "/") if target == "H_C" else target
+    target = DIAGNOSTICS_ALIASES.get(target, target)
     summary = registry.benchmark.get(target)
     if not summary:
         raise HTTPException(404, f"No diagnostics for target '{target}'")

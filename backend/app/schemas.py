@@ -32,6 +32,8 @@ class PredictionRequest(BaseModel):
         "'lightgbm', 'gpr', 'ridge', 'lasso', 'mlp'"
     )
 
+    model_config = {"protected_namespaces": ()}
+
 
 class ConstraintFlag(BaseModel):
     field: str
@@ -54,6 +56,8 @@ class PredictionResponse(BaseModel):
     model_used: str
     physics_flags: list[ConstraintFlag] = []
     drift_flags: list[DriftFlag] = []
+
+    model_config = {"protected_namespaces": ()}
 
 
 class SecondaryPredictions(BaseModel):
