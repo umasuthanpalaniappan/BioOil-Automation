@@ -52,7 +52,7 @@ MODEL_GRID = {
         {"model__alpha": [0.001, 0.01, 0.1, 1.0]},
     ),
     "random_forest": (
-        RandomForestRegressor(random_state=RANDOM_STATE),
+        RandomForestRegressor(random_state=RANDOM_STATE, n_jobs=1),
         {
             "model__n_estimators": [200, 400],
             "model__max_depth": [None, 5, 10],
@@ -81,7 +81,7 @@ try:
     import xgboost as xgb
 
     MODEL_GRID["xgboost"] = (
-        xgb.XGBRegressor(random_state=RANDOM_STATE, verbosity=0),
+        xgb.XGBRegressor(random_state=RANDOM_STATE, verbosity=0, n_jobs=1),
         {
             "model__n_estimators": [100, 300],
             "model__max_depth": [3, 5],
@@ -95,7 +95,7 @@ try:
     import lightgbm as lgb
 
     MODEL_GRID["lightgbm"] = (
-        lgb.LGBMRegressor(random_state=RANDOM_STATE, verbose=-1),
+        lgb.LGBMRegressor(random_state=RANDOM_STATE, verbose=-1, n_jobs=1),
         {
             "model__n_estimators": [100, 300],
             "model__num_leaves": [7, 15, 31],

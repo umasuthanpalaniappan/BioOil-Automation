@@ -33,6 +33,7 @@ Thumbs.db
 # ML artifacts (keep small final models, ignore large intermediates)
 ml/models/*.tmp
 ml/mlruns/
+ml/reports/train_log.txt
 *.ckpt
 *.h5
 
