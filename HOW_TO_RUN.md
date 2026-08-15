@@ -1,14 +1,15 @@
 # How to open the app (every time)
 
-You already cloned the repo and installed dependencies once. After that,
-starting it up again is just 2 windows, 2 commands.
+Project lives at `C:\Users\umasu\PycharmProjects\AKHIL MOHAN`. You already
+cloned the repo and installed dependencies once. After that, starting it up
+again is just 2 windows, 2 commands.
 
 ## 1. Start the backend
 
 Open PowerShell:
 
 ```powershell
-cd C:\Users\umasu\BioOil-Automation\backend
+cd "C:\Users\umasu\PycharmProjects\AKHIL MOHAN\backend"
 venv\Scripts\Activate.ps1
 uvicorn app.main:app --reload --port 8000
 ```
@@ -20,7 +21,7 @@ Leave this window open. Wait for `Uvicorn running on http://127.0.0.1:8000`.
 Open a **second** PowerShell window:
 
 ```powershell
-cd C:\Users\umasu\BioOil-Automation\frontend
+cd "C:\Users\umasu\PycharmProjects\AKHIL MOHAN\frontend"
 npm run dev
 ```
 
