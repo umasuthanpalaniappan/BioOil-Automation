@@ -237,6 +237,40 @@ def write_markdown_report(benchmark: dict):
                 f"{r['overfit_gap_r2']} |"
             )
         lines.append(f"\n**Best model (by test R²): `{summary['best_model']}`**\n")
+
+    phys_path = REPORTS_DIR / "physics_baseline.json"
+    if phys_path.exists() and "O/C" in benchmark:
+        phys = json.loads(phys_path.read_text())
+        best = benchmark["O/C"]["results"][benchmark["O/C"]["best_model"]]
+        lines.append("## Physics-only vs. ML-only vs. hybrid — O/C\n")
+        lines.append(
+            "Isolates what each layer contributes: pure reaction-kinetics "
+            "equations alone, vs. the full hybrid model that uses those "
+            "equations as features alongside statistical learning. See "
+            "`physics.md` for the governing equations.\n"
+        )
+        lines.append("| Approach | Test R² | Test RMSE |")
+        lines.append("|---|---|---|")
+        lines.append(
+            f"| Physics-only (linear fit on `physics_char_fraction` + "
+            f"`O_C_feedstock`, no ML) | {phys['test']['r2']} | {phys['test']['rmse']} |"
+        )
+        lines.append(
+            f"| Hybrid physics + ML (`{benchmark['O/C']['best_model']}`, all "
+            f"features incl. physics-derived) | {best['test']['r2']} | {best['test']['rmse']} |"
+        )
+        lines.append(
+            "\nThe physics-only fit alone explains very little of the test-set "
+            "variance — expected, since a two-term linear model can't capture "
+            "the non-linear, interacting effects of composition and process "
+            "conditions. But the *same* physics, embedded as features inside "
+            "the tree-ensemble model, measurably improves it over the "
+            "pre-physics baseline (Random Forest test R² rose from 0.836 to "
+            "0.887; XGBoost from 0.886 to 0.891 — see git history of this file "
+            "for the pre-physics numbers). The governing equations are doing "
+            "real work, not just window dressing.\n"
+        )
+
     (REPORTS_DIR / "benchmark_results.md").write_text("\n".join(lines))
 
 

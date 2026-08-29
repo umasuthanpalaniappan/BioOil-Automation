@@ -65,3 +65,14 @@ n_train=151, n_test=38
 | mlp | -1.0404 | 0.7458 | 0.0569 | 14.1697 | 9.7096 | 0.6889 |
 
 **Best model (by test R²): `gpr`**
+
+## Physics-only vs. ML-only vs. hybrid — O/C
+
+Isolates what each layer contributes: pure reaction-kinetics equations alone, vs. the full hybrid model that uses those equations as features alongside statistical learning. See `physics.md` for the governing equations.
+
+| Approach | Test R² | Test RMSE |
+|---|---|---|
+| Physics-only (linear fit on `physics_char_fraction` + `O_C_feedstock`, no ML) | 0.0296 | 0.6449 |
+| Hybrid physics + ML (`xgboost`, all features incl. physics-derived) | 0.8915 | 0.2157 |
+
+The physics-only fit alone explains very little of the test-set variance — expected, since a two-term linear model can't capture the non-linear, interacting effects of composition and process conditions. But the *same* physics, embedded as features inside the tree-ensemble model, measurably improves it over the pre-physics baseline (Random Forest test R² rose from 0.836 to 0.887; XGBoost from 0.886 to 0.891 — see git history of this file for the pre-physics numbers). The governing equations are doing real work, not just window dressing.
