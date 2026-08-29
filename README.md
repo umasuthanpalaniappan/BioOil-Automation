@@ -66,6 +66,17 @@ distributions, and correlation analysis, and
 [`ml/reports/preprocessing.md`](ml/reports/preprocessing.md) for how
 missing values and outliers were handled.
 
+## Physics-informed modeling
+
+Beyond a purely statistical fit, the models are fed physics-derived
+features computed from actual pyrolysis reaction kinetics (Arrhenius
+Independent Parallel Reactions for cellulose/hemicellulose/lignin,
+integrated against each row's real heating rate and process temperature)
+and a combustion-engineering energy correlation (Modified Dulong formula).
+Full equations, literature citations, and a physics-only vs. ML-only vs.
+hybrid comparison: [`ml/reports/physics.md`](ml/reports/physics.md) and
+[`ml/reports/benchmark_results.md`](ml/reports/benchmark_results.md).
+
 **Honesty note:** this is compiled multi-study literature data, not a
 single clean experiment. Missing data is substantial in several columns,
 and the usable sample for the primary target (O/C) is ~235 rows. Model
