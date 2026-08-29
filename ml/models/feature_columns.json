@@ -1,1 +1,1 @@
-["Cel", "Hem", "Lig", "VM", "Ash", "FC", "C%", "H%", "O%", "N%", "Size", "HR", "PT", "Temp", "Cel_Lig_ratio", "O_C_feedstock", "H_C_feedstock", "Cel_Hem"]
+["Cel", "Hem", "Lig", "VM", "Ash", "FC", "C%", "H%", "O%", "N%", "Size", "HR", "PT", "Temp", "Cel_Lig_ratio", "O_C_feedstock", "H_C_feedstock", "Cel_Hem", "physics_alpha_cellulose", "physics_alpha_hemicellulose", "physics_alpha_lignin", "physics_conversion", "physics_char_fraction", "physics_hhv_dulong"]

@@ -63,13 +63,22 @@ class ModelRegistry:
             if p.exists():
                 self.secondary_models[target] = joblib.load(p)
 
-        # sklearn 1.6+'s is_regressor() checks a tags API some xgboost/lightgbm
-        # sklearn-wrapper versions don't populate; every model here is a
-        # regressor, so patch the marker rather than pin older library versions.
+        # xgboost's __sklearn_tags__() can return estimator_type=None on some
+        # xgboost/scikit-learn version combinations; patch it so any
+        # sklearn internals relying on is_regressor() (e.g. inspection
+        # utilities) see these fitted regressors correctly.
         for pipe in [*self.oc_models.values(), *self.secondary_models.values()]:
             inner = pipe.named_steps.get("model") if hasattr(pipe, "named_steps") else None
-            if inner is not None and not hasattr(inner, "_estimator_type"):
-                inner._estimator_type = "regressor"
+            if inner is not None and hasattr(inner, "__sklearn_tags__"):
+                original = inner.__sklearn_tags__
+
+                def _patched(original=original):
+                    tags = original()
+                    if tags.estimator_type is None:
+                        tags.estimator_type = "regressor"
+                    return tags
+
+                inner.__sklearn_tags__ = _patched
 
         self.loaded = len(self.oc_models) > 0
 

@@ -40,6 +40,28 @@ CHEMISTRY_NOTES = {
                      "saturation and hydrogen availability during pyrolysis",
     "Cel_Hem": "total holocellulose (cellulose+hemicellulose) represents the "
                "volatile-prone fraction of the feedstock",
+    "physics_hhv_dulong": "physics-derived feature: fuel energy content (HHV) "
+                          "estimated from ultimate analysis via the Modified "
+                          "Dulong combustion-engineering formula",
+    "physics_conversion": "physics-derived feature: composition-weighted "
+                          "conversion fraction predicted by Arrhenius reaction "
+                          "kinetics for cellulose/hemicellulose/lignin at this "
+                          "prediction's actual PT and HR",
+    "physics_char_fraction": "physics-derived feature: 1 minus the kinetics-"
+                          "predicted conversion — a mechanistic proxy for how "
+                          "much feedstock would stay solid (char) rather than "
+                          "devolatilize into oil+gas vapor",
+    "physics_alpha_cellulose": "physics-derived feature: Arrhenius-kinetics "
+                          "predicted conversion of the cellulose pseudo-component "
+                          "alone at this prediction's PT/HR",
+    "physics_alpha_hemicellulose": "physics-derived feature: Arrhenius-kinetics "
+                          "predicted conversion of the hemicellulose "
+                          "pseudo-component alone at this prediction's PT/HR",
+    "physics_alpha_lignin": "physics-derived feature: Arrhenius-kinetics "
+                          "predicted conversion of the lignin pseudo-component "
+                          "alone — lignin's high activation energy keeps this "
+                          "typically low, consistent with its known thermal "
+                          "resistance",
 }
 
 

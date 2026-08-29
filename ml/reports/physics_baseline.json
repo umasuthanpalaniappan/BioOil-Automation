@@ -1,0 +1,22 @@
+{
+  "description": "Pure-physics baseline: linear fit of O/C on physics_char_fraction (Arrhenius kinetics conversion proxy) and O_C_feedstock only \u2014 no other statistical features, no tree ensembles.",
+  "features_used": [
+    "physics_char_fraction",
+    "O_C_feedstock"
+  ],
+  "coefficients": {
+    "physics_char_fraction": 0.5102,
+    "O_C_feedstock": -0.2957
+  },
+  "intercept": 0.3919,
+  "train": {
+    "r2": 0.0508,
+    "rmse": 0.4813,
+    "mae": 0.301
+  },
+  "test": {
+    "r2": 0.0296,
+    "rmse": 0.6449,
+    "mae": 0.3992
+  }
+}

@@ -18,6 +18,28 @@ MODELS_DIR = Path(__file__).resolve().parents[1] / "models"
 REPORTS_DIR = Path(__file__).resolve().parents[1] / "reports"
 FIG_DIR = REPORTS_DIR / "figures"
 
+
+def _patch_sklearn_tags(estimator):
+    """XGBoost's __sklearn_tags__() returns estimator_type=None on some
+    xgboost/scikit-learn version combinations (xgboost's sklearn wrapper
+    doesn't properly propagate RegressorMixin's tag contribution), which
+    makes sklearn's is_regressor() — used internally by
+    PartialDependenceDisplay — reject a perfectly good fitted regressor.
+    Every model in this project is a regressor, so patch the tags method
+    directly rather than pin to older, less secure library versions.
+    """
+    if not hasattr(estimator, "__sklearn_tags__"):
+        return
+    original = estimator.__sklearn_tags__
+
+    def patched():
+        tags = original()
+        if tags.estimator_type is None:
+            tags.estimator_type = "regressor"
+        return tags
+
+    estimator.__sklearn_tags__ = patched
+
 CHEMISTRY_NOTES = {
     "Lig": "Lignin resists thermal decomposition and shifts product distribution "
            "toward char rather than oxygenated liquid volatiles.",
@@ -55,6 +77,31 @@ CHEMISTRY_NOTES = {
           "to volatile (oil) yield.",
     "H%": "Feedstock hydrogen content influences the H/C and, indirectly, "
           "the O/C of the resulting oil.",
+    "physics_hhv_dulong": "Physics-derived feature: fuel energy content (HHV) "
+                          "estimated directly from the feedstock's ultimate "
+                          "analysis via the Modified Dulong formula — a "
+                          "combustion-engineering correlation, not a fitted "
+                          "statistical feature.",
+    "physics_conversion": "Physics-derived feature: composition-weighted "
+                          "conversion fraction predicted by Arrhenius reaction "
+                          "kinetics for cellulose/hemicellulose/lignin at this "
+                          "row's actual PT and HR (Independent Parallel "
+                          "Reactions kinetics, see ml/reports/physics.md).",
+    "physics_char_fraction": "Physics-derived feature: 1 minus the kinetics-"
+                          "predicted conversion — a mechanistic proxy for how "
+                          "much feedstock stayed solid (char) rather than "
+                          "devolatilizing into oil+gas vapor.",
+    "physics_alpha_cellulose": "Physics-derived feature: Arrhenius-kinetics "
+                          "predicted conversion fraction of the cellulose "
+                          "pseudo-component alone at this row's PT/HR.",
+    "physics_alpha_hemicellulose": "Physics-derived feature: Arrhenius-kinetics "
+                          "predicted conversion fraction of the hemicellulose "
+                          "pseudo-component alone at this row's PT/HR.",
+    "physics_alpha_lignin": "Physics-derived feature: Arrhenius-kinetics "
+                          "predicted conversion fraction of the lignin "
+                          "pseudo-component alone at this row's PT/HR — lignin's "
+                          "high activation energy makes this typically low, "
+                          "consistent with lignin's known thermal resistance.",
     "Cel_Lig_ratio": "The cellulose-to-lignin balance reflects how much of "
                      "the feedstock decomposes into oxygenated volatiles vs. char.",
 }
@@ -66,12 +113,7 @@ def main():
 
     X_imputed = model[:-1].transform(X)
     inner = model.named_steps["model"]
-    # sklearn 1.6+'s is_regressor() (used internally by PartialDependenceDisplay)
-    # checks a tags API that some xgboost/lightgbm sklearn-wrapper versions
-    # don't populate; every model in this registry is a regressor, so this
-    # is a safe, minimal patch rather than pinning to older library versions.
-    if not hasattr(inner, "_estimator_type"):
-        inner._estimator_type = "regressor"
+    _patch_sklearn_tags(inner)
 
     explainer = shap.TreeExplainer(inner) if hasattr(inner, "get_booster") or \
         inner.__class__.__name__ in ("RandomForestRegressor", "XGBRegressor", "LGBMRegressor") \

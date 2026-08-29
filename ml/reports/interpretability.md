@@ -6,24 +6,30 @@ SHAP (SHapley Additive exPlanations) values quantify each feature's contribution
 
 | Rank | Feature | Mean |SHAP| |
 |---|---|---|
-| 1 | HR | 0.0890 |
-| 2 | Temp | 0.0778 |
-| 3 | Ash | 0.0501 |
-| 4 | N% | 0.0430 |
-| 5 | Size | 0.0428 |
-| 6 | VM | 0.0417 |
-| 7 | Lig | 0.0287 |
-| 8 | O% | 0.0261 |
-| 9 | Cel_Lig_ratio | 0.0212 |
-| 10 | FC | 0.0186 |
-| 11 | H% | 0.0168 |
-| 12 | Cel | 0.0115 |
-| 13 | PT | 0.0103 |
-| 14 | C% | 0.0081 |
-| 15 | Hem | 0.0028 |
-| 16 | O_C_feedstock | 0.0028 |
-| 17 | H_C_feedstock | 0.0023 |
-| 18 | Cel_Hem | 0.0023 |
+| 1 | HR | 0.0877 |
+| 2 | Temp | 0.0762 |
+| 3 | Ash | 0.0473 |
+| 4 | N% | 0.0465 |
+| 5 | Size | 0.0427 |
+| 6 | VM | 0.0364 |
+| 7 | O% | 0.0277 |
+| 8 | Lig | 0.0262 |
+| 9 | Cel_Lig_ratio | 0.0234 |
+| 10 | FC | 0.0190 |
+| 11 | Cel | 0.0123 |
+| 12 | H% | 0.0114 |
+| 13 | physics_hhv_dulong | 0.0096 |
+| 14 | physics_alpha_lignin | 0.0084 |
+| 15 | physics_conversion | 0.0082 |
+| 16 | physics_alpha_cellulose | 0.0072 |
+| 17 | C% | 0.0059 |
+| 18 | Hem | 0.0039 |
+| 19 | Cel_Hem | 0.0024 |
+| 20 | H_C_feedstock | 0.0013 |
+| 21 | PT | 0.0010 |
+| 22 | O_C_feedstock | 0.0000 |
+| 23 | physics_alpha_hemicellulose | 0.0000 |
+| 24 | physics_char_fraction | 0.0000 |
 
 ## Chemistry interpretation of top features
 
