@@ -25,32 +25,31 @@ Design decisions (see ml/reports/preprocessing.md for the full writeup):
    fitting on very little signal and risks fabricating false precision.
    This is a documented limitation, not a claim of ideal handling.
 
-4. Feature engineering (chemically motivated):
-   - Cel_Lig_ratio = Cel / Lig            (cellulose vs lignin balance)
-   - O_C_feedstock = O% / C%              (feedstock oxygen loading)
-   - H_C_feedstock = H% / C%              (feedstock hydrogen loading)
-   - Cel_Hem = Cel + Hem                  (total holocellulose)
+4. Feature engineering — two layers:
+   a) Chemical ratios: Cel_Lig_ratio, O_C_feedstock, H_C_feedstock, Cel_Hem
+   b) Physics-informed features (ml/src/physics.py): Arrhenius reaction-
+      kinetics conversion fractions for cellulose/hemicellulose/lignin
+      (Independent Parallel Reactions framework) integrated against each
+      row's actual heating rate and process temperature, plus a Dulong-
+      formula energy-content estimate from ultimate analysis. These encode
+      actual reactor chemistry equations as model inputs, rather than
+      leaving the relationship to be inferred purely statistically.
+      See ml/reports/physics.md for the full equations and citations.
+
+Both layers live in ml/src/feature_engineering.py, which is also imported
+by the backend at prediction time, so a live prediction is engineered
+identically to how the training data was.
 """
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 from data_loader import FEATURE_COLS, PRIMARY_TARGET, TARGET_COLS, load_raw
+from feature_engineering import ENGINEERED_COLS, engineer_features_df
 
 REPORTS_DIR = Path(__file__).resolve().parents[1] / "reports"
 
-ENGINEERED_COLS = ["Cel_Lig_ratio", "O_C_feedstock", "H_C_feedstock", "Cel_Hem"]
 ALL_FEATURE_COLS = FEATURE_COLS + ENGINEERED_COLS
-
-
-def _engineer_features(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.copy()
-    df["Cel_Lig_ratio"] = df["Cel"] / df["Lig"].replace(0, np.nan)
-    df["O_C_feedstock"] = df["O%"] / df["C%"].replace(0, np.nan)
-    df["H_C_feedstock"] = df["H%"] / df["C%"].replace(0, np.nan)
-    df["Cel_Hem"] = df["Cel"] + df["Hem"]
-    return df
 
 
 def clean_dataset() -> tuple[pd.DataFrame, dict]:
@@ -68,7 +67,7 @@ def clean_dataset() -> tuple[pd.DataFrame, dict]:
     n_bad_ua = int(bad_ua.sum())
     df = df.loc[~bad_ua].reset_index(drop=True)
 
-    df = _engineer_features(df)
+    df = engineer_features_df(df)
 
     report = {
         "n_start": n_start,

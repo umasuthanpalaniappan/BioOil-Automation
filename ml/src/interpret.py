@@ -66,6 +66,12 @@ def main():
 
     X_imputed = model[:-1].transform(X)
     inner = model.named_steps["model"]
+    # sklearn 1.6+'s is_regressor() (used internally by PartialDependenceDisplay)
+    # checks a tags API that some xgboost/lightgbm sklearn-wrapper versions
+    # don't populate; every model in this registry is a regressor, so this
+    # is a safe, minimal patch rather than pinning to older library versions.
+    if not hasattr(inner, "_estimator_type"):
+        inner._estimator_type = "regressor"
 
     explainer = shap.TreeExplainer(inner) if hasattr(inner, "get_booster") or \
         inner.__class__.__name__ in ("RandomForestRegressor", "XGBRegressor", "LGBMRegressor") \

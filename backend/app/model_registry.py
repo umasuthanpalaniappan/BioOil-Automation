@@ -1,6 +1,7 @@
 """Loads trained model artifacts once at startup and serves predictions."""
 import json
 import os
+import sys
 from pathlib import Path
 
 import joblib
@@ -8,6 +9,14 @@ import numpy as np
 
 DEFAULT_MODELS_DIR = Path(__file__).resolve().parents[2] / "ml" / "models"
 MODELS_DIR = Path(os.environ.get("MODELS_DIR", str(DEFAULT_MODELS_DIR)))
+
+# Reuse the exact same feature-engineering code the training pipeline used,
+# so a live prediction is engineered identically to the training data
+# (ratios + physics-informed kinetics/HHV features from ml/src/physics.py).
+ML_SRC_DIR = Path(os.environ.get("ML_SRC_DIR", str(Path(__file__).resolve().parents[2] / "ml" / "src")))
+if str(ML_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(ML_SRC_DIR))
+from feature_engineering import engineer_features_row  # noqa: E402
 
 VERSION = "v1"
 SECONDARY_TARGETS = ["H/C", "Cal_value", "Oil_yield"]
@@ -54,6 +63,14 @@ class ModelRegistry:
             if p.exists():
                 self.secondary_models[target] = joblib.load(p)
 
+        # sklearn 1.6+'s is_regressor() checks a tags API some xgboost/lightgbm
+        # sklearn-wrapper versions don't populate; every model here is a
+        # regressor, so patch the marker rather than pin older library versions.
+        for pipe in [*self.oc_models.values(), *self.secondary_models.values()]:
+            inner = pipe.named_steps.get("model") if hasattr(pipe, "named_steps") else None
+            if inner is not None and not hasattr(inner, "_estimator_type"):
+                inner._estimator_type = "regressor"
+
         self.loaded = len(self.oc_models) > 0
 
     def available_models(self) -> list[str]:
@@ -62,7 +79,8 @@ class ModelRegistry:
     def to_feature_frame(self, feature_dict: dict):
         import pandas as pd
 
-        row = {c: feature_dict.get(c, np.nan) for c in self.feature_columns}
+        enriched = {**feature_dict, **engineer_features_row(feature_dict)}
+        row = {c: enriched.get(c, np.nan) for c in self.feature_columns}
         return pd.DataFrame([row])
 
     def predict_oc(self, feature_dict: dict, model_name: str = "best"):

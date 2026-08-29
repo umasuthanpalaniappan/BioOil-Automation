@@ -17,6 +17,12 @@
 - `O_C_feedstock`
 - `H_C_feedstock`
 - `Cel_Hem`
+- `physics_alpha_cellulose`
+- `physics_alpha_hemicellulose`
+- `physics_alpha_lignin`
+- `physics_conversion`
+- `physics_char_fraction`
+- `physics_hhv_dulong`
 
 ## O/C outlier note
 
