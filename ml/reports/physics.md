@@ -104,7 +104,90 @@ feedstock's own energy content (`physics_hhv_dulong`) as an input feature
 — directly relevant to the calorific-value target, and to O/C, since both
 track how oxygen-loaded the feedstock is to begin with.
 
-## 3. Why this matters: physics-only vs. ML-only vs. hybrid
+## 3. Broido-Shafizadeh competitive cellulose pathway
+
+The single-reaction cellulose model in Section 1 is a lumped
+simplification. The classic Broido-Shafizadeh scheme (Bradbury, Sakai &
+Shafizadeh, *"A kinetic model for pyrolysis of cellulose"*, J. Applied
+Polymer Science 23, 3271–3280, 1979) resolves it into three reactions —
+cellulose first forms an "active cellulose" intermediate, which then
+splits along **two competing pathways**: one to oxygenated volatiles
+(chiefly levoglucosan, the classic cellulose pyrolysis liquid product),
+the other to char + light gas:
+
+```
+Cellulose --ki--> Active Cellulose
+Active Cellulose --kv--> Volatiles (oxygenated)
+Active Cellulose --kc--> Char + Gas
+
+ki = 1.7e21 * exp(-242,672 / RT)   1/min
+kv = 1.9e16 * exp(-197,905 / RT)   1/min
+kc = 7.9e11 * exp(-153,134 / RT)   1/min
+```
+
+(Original source reports Ea in cal/mol — 58,000 / 47,300 / 36,600 —
+converted above at 4.184 J/cal.) Integrated over each row's actual PT/HR,
+this gives two new features: `physics_cellulose_volatile_fraction` and
+`physics_cellulose_chargas_fraction` — a genuinely *competitive-pathway*
+signal specific to cellulose, rather than one lumped conversion number.
+
+## 4. Secondary vapor-phase tar-cracking severity
+
+Primary pyrolysis vapors can undergo further gas-phase "secondary
+cracking" at high temperature — larger oxygenated tar molecules break
+into lighter gases, losing oxygen along the way. This is the actual
+mechanistic reason behind the well-known empirical pattern "higher PT
+lowers bio-oil O/C" (already visible in this project's raw correlation
+analysis, PT vs. O/C: −0.445). A first-order Arrhenius rate for this
+reaction, evaluated at PT and combined with a residence-time proxy
+(estimated from HR), gives a dimensionless cracking-severity index:
+
+```
+severity = k(PT) * t_residence
+k(T) = 4.28e6 * exp(-107,500 / RT)   1/s
+```
+
+**Confidence caveat:** this specific kinetic triplet is very widely cited
+in reactor-modeling literature as "Liden, Berruti & Scott, 1988," but
+this project's sandboxed environment could not fetch the primary source
+to verify the exact figures directly. It is used as a
+literature-representative order-of-magnitude value for secondary
+cracking, not a value fitted to this project's data — the resulting
+feature (`physics_tar_cracking_severity`) should be read as directionally
+meaningful (it correctly rises with both temperature and residence time)
+rather than a precisely validated rate constant. This is flagged
+explicitly rather than silently presented as certain.
+
+## 5. Ash-catalyzed devolatilization
+
+Biomass ash carries alkali and alkaline-earth metals (K, Na, Ca, Mg)
+that are well documented to catalytically lower cellulose's effective
+activation energy, accelerating dehydration reactions and shifting
+product distribution away from levoglucosan toward char and light
+oxygenated fragments. Modeled as a simple, explicitly-approximate linear
+correction to the cellulose activation energy from Section 1:
+
+```
+Ea_effective = Ea_cellulose * (1 - 0.3 * Ash_fraction)
+```
+
+This is the most approximate feature in this module — the qualitative
+catalytic effect is real and well-established in the literature, but the
+0.3 coefficient is a reasoned estimate rather than a value calibrated
+against one specific study, since exact catalytic strength depends on
+*which* minerals are present (not resolved by this dataset's `Ash`
+column, which only reports total ash mass). Feature:
+`physics_alpha_cellulose_ash_adjusted`.
+
+## 6. Residence-time proxy
+
+`physics_residence_time_s` — the time (seconds) for the bed to rise from
+ambient to PT at the row's heating rate. Exposed as its own feature since
+it is independently meaningful (a proxy for how long volatiles are
+exposed to secondary reactions), not just an intermediate used inside the
+kinetics integrations above.
+
+## 7. Why this matters: physics-only vs. ML-only vs. hybrid
 
 To make the value of the physics layer explicit (not just asserted), three
 things are compared on the same held-out test set, all reported in

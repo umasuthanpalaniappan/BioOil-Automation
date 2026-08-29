@@ -62,6 +62,30 @@ CHEMISTRY_NOTES = {
                           "alone — lignin's high activation energy keeps this "
                           "typically low, consistent with its known thermal "
                           "resistance",
+    "physics_cellulose_volatile_fraction": "physics-derived feature: from the "
+                          "competitive Broido-Shafizadeh cellulose reaction scheme, "
+                          "the predicted fraction of cellulose converting to "
+                          "oxygenated volatile products (e.g. levoglucosan-type "
+                          "compounds) rather than char",
+    "physics_cellulose_chargas_fraction": "physics-derived feature: the "
+                          "competing char+gas-forming pathway from the same "
+                          "Broido-Shafizadeh cellulose scheme — higher values mean "
+                          "less oxygenated liquid product from cellulose specifically",
+    "physics_tar_cracking_severity": "physics-derived feature: a dimensionless "
+                          "index (secondary tar-cracking rate constant x residence "
+                          "time) for how much primary pyrolysis vapor undergoes "
+                          "further gas-phase deoxygenation reactions — the "
+                          "mechanistic reason higher temperature tends to lower "
+                          "bio-oil O/C",
+    "physics_alpha_cellulose_ash_adjusted": "physics-derived feature: cellulose "
+                          "conversion re-computed with an ash-catalysis correction "
+                          "to its activation energy, reflecting how alkali/alkaline-"
+                          "earth metals in ash catalytically accelerate cellulose "
+                          "decomposition",
+    "physics_residence_time_s": "physics-derived feature: estimated time (s) for "
+                          "the bed to reach the process temperature at the given "
+                          "heating rate — a proxy for how long vapors are exposed "
+                          "to secondary reactions",
 }
 
 
