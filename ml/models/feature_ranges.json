@@ -94,5 +94,25 @@
   "physics_hhv_dulong": {
     "min": 12.726819999999998,
     "max": 32.123129999999996
+  },
+  "physics_cellulose_volatile_fraction": {
+    "min": 8.323006016730354e-13,
+    "max": 0.9016530848940322
+  },
+  "physics_cellulose_chargas_fraction": {
+    "min": 4.875669807508841e-12,
+    "max": 0.2440694157659897
+  },
+  "physics_tar_cracking_severity": {
+    "min": 0.00909981217013487,
+    "max": 232953.382994062
+  },
+  "physics_alpha_cellulose_ash_adjusted": {
+    "min": 3.707587259019168e-08,
+    "max": 1.0
+  },
+  "physics_residence_time_s": {
+    "min": 41.666666666666664,
+    "max": 9300.000000000002
   }
 }

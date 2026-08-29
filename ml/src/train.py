@@ -264,11 +264,13 @@ def write_markdown_report(benchmark: dict):
             "variance — expected, since a two-term linear model can't capture "
             "the non-linear, interacting effects of composition and process "
             "conditions. But the *same* physics, embedded as features inside "
-            "the tree-ensemble model, measurably improves it over the "
-            "pre-physics baseline (Random Forest test R² rose from 0.836 to "
-            "0.887; XGBoost from 0.886 to 0.891 — see git history of this file "
-            "for the pre-physics numbers). The governing equations are doing "
-            "real work, not just window dressing.\n"
+            "the tree-ensemble model, measurably improves it over a pre-physics "
+            "baseline trained on raw composition/process columns alone "
+            "(pre-physics XGBoost test R² was 0.886; it is "
+            f"{best['test']['r2']} with the current physics-informed feature "
+            "set — see git history of this file for the full progression as "
+            "the physics layer was expanded). The governing equations are "
+            "doing real work, not just window dressing.\n"
         )
 
     (REPORTS_DIR / "benchmark_results.md").write_text("\n".join(lines))

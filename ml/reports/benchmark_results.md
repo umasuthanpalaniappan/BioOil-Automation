@@ -8,13 +8,13 @@ n_train=185, n_test=47
 
 | Model | CV R² (train folds) | Train R² | Test R² | Test RMSE | Test MAE | Overfit gap |
 |---|---|---|---|---|---|---|
-| xgboost | 0.6374 | 0.9771 | 0.8915 | 0.2157 | 0.126 | 0.0856 |
-| random_forest | 0.5274 | 0.9271 | 0.8866 | 0.2205 | 0.1327 | 0.0405 |
-| gpr | 0.4887 | 0.9549 | 0.8621 | 0.2431 | 0.1756 | 0.0928 |
-| lightgbm | 0.5431 | 0.8966 | 0.8531 | 0.2509 | 0.1841 | 0.0435 |
-| lasso | 0.3023 | 0.452 | 0.4982 | 0.4638 | 0.2807 | -0.0462 |
-| ridge | 0.2963 | 0.4055 | 0.4478 | 0.4865 | 0.3088 | -0.0423 |
-| mlp | -0.0166 | 0.2113 | 0.2039 | 0.5841 | 0.4029 | 0.0074 |
+| xgboost | 0.6209 | 0.979 | 0.8996 | 0.2074 | 0.1277 | 0.0794 |
+| random_forest | 0.5397 | 0.9314 | 0.8887 | 0.2184 | 0.1351 | 0.0427 |
+| gpr | 0.5091 | 0.9559 | 0.8577 | 0.247 | 0.179 | 0.0982 |
+| lightgbm | 0.5223 | 0.8762 | 0.8456 | 0.2572 | 0.1871 | 0.0306 |
+| ridge | 0.3056 | 0.4893 | 0.5107 | 0.458 | 0.2833 | -0.0214 |
+| lasso | 0.3176 | 0.4644 | 0.4832 | 0.4706 | 0.284 | -0.0188 |
+| mlp | 0.0677 | 0.3135 | 0.3198 | 0.5399 | 0.3898 | -0.0063 |
 
 **Best model (by test R²): `xgboost`**
 
@@ -24,15 +24,15 @@ n_train=185, n_test=47
 
 | Model | CV R² (train folds) | Train R² | Test R² | Test RMSE | Test MAE | Overfit gap |
 |---|---|---|---|---|---|---|
-| xgboost | 0.1939 | 0.8895 | 0.4815 | 2.1633 | 1.4854 | 0.408 |
-| random_forest | 0.2319 | 0.8773 | 0.4645 | 2.1986 | 1.4924 | 0.4128 |
-| lightgbm | 0.2832 | 0.9382 | 0.3608 | 2.4019 | 1.6686 | 0.5774 |
-| gpr | 0.159 | 0.8811 | 0.3238 | 2.4705 | 1.7658 | 0.5573 |
-| ridge | 0.005 | 0.2032 | 0.1391 | 2.7875 | 2.1306 | 0.0641 |
-| lasso | -0.0211 | 0.0234 | 0.0223 | 2.9707 | 2.1146 | 0.0011 |
-| mlp | -0.0353 | 0.1433 | -0.1027 | 3.1548 | 2.3731 | 0.246 |
+| random_forest | 0.2219 | 0.8199 | 0.4226 | 2.283 | 1.4705 | 0.3973 |
+| xgboost | 0.2453 | 0.9141 | 0.3137 | 2.4889 | 1.5557 | 0.6004 |
+| lightgbm | 0.2577 | 0.8435 | 0.3114 | 2.4931 | 1.7086 | 0.5321 |
+| gpr | 0.138 | 0.8755 | 0.2974 | 2.5183 | 1.7788 | 0.5781 |
+| ridge | 0.0217 | 0.2237 | 0.178 | 2.7238 | 2.0731 | 0.0457 |
+| lasso | -0.01 | 0.2334 | 0.1653 | 2.7448 | 2.0524 | 0.0681 |
+| mlp | -0.0571 | 0.367 | 0.1012 | 2.8482 | 2.0428 | 0.2658 |
 
-**Best model (by test R²): `xgboost`**
+**Best model (by test R²): `random_forest`**
 
 ## Target: Cal_value
 
@@ -40,13 +40,13 @@ n_train=192, n_test=49
 
 | Model | CV R² (train folds) | Train R² | Test R² | Test RMSE | Test MAE | Overfit gap |
 |---|---|---|---|---|---|---|
-| random_forest | 0.4827 | 0.8579 | 0.424 | 4.3867 | 2.8587 | 0.4339 |
-| gpr | 0.3307 | 0.8873 | 0.274 | 4.925 | 3.3176 | 0.6133 |
-| ridge | -0.1297 | 0.2493 | 0.2418 | 5.0329 | 3.9698 | 0.0075 |
-| lightgbm | 0.4321 | 0.9505 | 0.1437 | 5.3486 | 3.4357 | 0.8068 |
-| xgboost | 0.4703 | 0.9599 | 0.0739 | 5.5625 | 3.2859 | 0.886 |
+| random_forest | 0.4853 | 0.8589 | 0.4124 | 4.4309 | 2.919 | 0.4465 |
+| lightgbm | 0.4224 | 0.8952 | 0.3092 | 4.8042 | 3.1781 | 0.586 |
+| gpr | 0.3405 | 0.9123 | 0.2753 | 4.9206 | 3.3912 | 0.637 |
+| ridge | -0.1105 | 0.2597 | 0.2227 | 5.096 | 4.0134 | 0.037 |
+| xgboost | 0.4604 | 0.9587 | 0.0556 | 5.6171 | 3.4736 | 0.9031 |
+| mlp | -1.8156 | 0.2993 | 0.0343 | 5.6801 | 4.5043 | 0.265 |
 | lasso | -0.0664 | 0.092 | 0.0206 | 5.7203 | 4.492 | 0.0714 |
-| mlp | -8.6051 | 0.0484 | -0.3911 | 6.8174 | 5.3233 | 0.4395 |
 
 **Best model (by test R²): `random_forest`**
 
@@ -56,13 +56,13 @@ n_train=151, n_test=38
 
 | Model | CV R² (train folds) | Train R² | Test R² | Test RMSE | Test MAE | Overfit gap |
 |---|---|---|---|---|---|---|
-| gpr | 0.3691 | 0.9921 | 0.6138 | 9.0676 | 6.2076 | 0.3783 |
-| xgboost | 0.4945 | 0.9937 | 0.5916 | 9.3248 | 5.9567 | 0.4021 |
-| random_forest | 0.4502 | 0.9329 | 0.5553 | 9.7295 | 6.8218 | 0.3776 |
-| lightgbm | 0.2977 | 0.8763 | 0.3779 | 11.5081 | 8.1228 | 0.4984 |
-| ridge | 0.0693 | 0.2321 | 0.0752 | 14.0315 | 11.307 | 0.1569 |
-| lasso | 0.0605 | 0.2005 | 0.0577 | 14.1635 | 11.404 | 0.1428 |
-| mlp | -1.0404 | 0.7458 | 0.0569 | 14.1697 | 9.7096 | 0.6889 |
+| gpr | 0.3609 | 0.9921 | 0.6227 | 8.9625 | 6.386 | 0.3694 |
+| random_forest | 0.438 | 0.933 | 0.5461 | 9.8302 | 6.8745 | 0.3869 |
+| xgboost | 0.5014 | 0.9937 | 0.5434 | 9.8588 | 6.3265 | 0.4503 |
+| lightgbm | 0.3074 | 0.9696 | 0.4059 | 11.2457 | 7.5604 | 0.5637 |
+| mlp | -0.3556 | 0.934 | 0.2543 | 12.5993 | 8.3954 | 0.6797 |
+| ridge | 0.0991 | 0.2623 | 0.0914 | 13.908 | 11.3082 | 0.1709 |
+| lasso | 0.0646 | 0.2167 | 0.0731 | 14.0475 | 11.4287 | 0.1436 |
 
 **Best model (by test R²): `gpr`**
 
@@ -73,6 +73,6 @@ Isolates what each layer contributes: pure reaction-kinetics equations alone, vs
 | Approach | Test R² | Test RMSE |
 |---|---|---|
 | Physics-only (linear fit on `physics_char_fraction` + `O_C_feedstock`, no ML) | 0.0296 | 0.6449 |
-| Hybrid physics + ML (`xgboost`, all features incl. physics-derived) | 0.8915 | 0.2157 |
+| Hybrid physics + ML (`xgboost`, all features incl. physics-derived) | 0.8996 | 0.2074 |
 
-The physics-only fit alone explains very little of the test-set variance — expected, since a two-term linear model can't capture the non-linear, interacting effects of composition and process conditions. But the *same* physics, embedded as features inside the tree-ensemble model, measurably improves it over the pre-physics baseline (Random Forest test R² rose from 0.836 to 0.887; XGBoost from 0.886 to 0.891 — see git history of this file for the pre-physics numbers). The governing equations are doing real work, not just window dressing.
+The physics-only fit alone explains very little of the test-set variance — expected, since a two-term linear model can't capture the non-linear, interacting effects of composition and process conditions. But the *same* physics, embedded as features inside the tree-ensemble model, measurably improves it over a pre-physics baseline trained on raw composition/process columns alone (pre-physics XGBoost test R² was 0.886; it is 0.8996 with the current physics-informed feature set — see git history of this file for the full progression as the physics layer was expanded). The governing equations are doing real work, not just window dressing.

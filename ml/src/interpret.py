@@ -160,6 +160,7 @@ def main():
         lines.append(f"- **{f}**: {note}")
     lines.append("")
 
+    pt_rank = ranked_features.index("PT") + 1 if "PT" in ranked_features else None
     lines.append(
         "## Honesty note: importance ranking vs. correlation analysis\n\n"
         "The SHAP importance ranking above is dominated by features with "
@@ -171,11 +172,22 @@ def main():
         "act as a proxy for which study/experimental setup a row came from, "
         "and the model can partly learn that confound rather than pure "
         "pyrolysis chemistry. PT — the single most mechanistically important "
-        "process variable in pyrolysis literature — ranks low here (rank 13) "
-        "despite a strong negative Pearson correlation (-0.445) with O/C, "
-        "which is a sign this model's feature ranking should not be read as "
-        "a definitive causal explanation. Treat both analyses together, and "
-        "treat PT's true importance as understated by SHAP on this model."
+        f"process variable in pyrolysis literature — ranks low here (rank {pt_rank} "
+        f"of {len(ranked_features)}) "
+        "despite a strong negative Pearson correlation (-0.445) with O/C. Its "
+        "influence is not absent from the model, though: several physics-informed "
+        "features derived directly from PT (physics_conversion, physics_char_fraction, "
+        "physics_cellulose_volatile_fraction/chargas_fraction, physics_tar_cracking_severity, "
+        "physics_alpha_cellulose_ash_adjusted, physics_residence_time_s — all computed "
+        "by integrating reaction kinetics up to each row's actual PT) rank well above "
+        "raw PT itself, several in the top half of the table. Read together, this "
+        "suggests the model is drawing on temperature's effect mainly *through* the "
+        "physics-informed conversion/cracking features rather than the raw PT column "
+        "directly — which is arguably the more chemically faithful signal, since it's "
+        "temperature's effect on reaction extent that actually drives O/C, not "
+        "temperature alone. Still, this ranking should not be read as a definitive "
+        "causal explanation — treat it alongside the raw correlation analysis, not "
+        "as a replacement for it."
     )
 
     lines.append("## Figures\n")
