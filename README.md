@@ -17,6 +17,23 @@ pyrolysis temperature), the model predicts the resulting bio-oil's O/C
 ratio (and secondary properties: H/C, calorific value, oil yield), so
 conditions can be tuned toward lower-oxygen bio-oil.
 
+## Update (October 2026): Physics-aware Pyrolysis Advisor
+
+A second, end-semester study lives in [`pyrolysis_advisor/`](pyrolysis_advisor/):
+
+- **Honest benchmark:** random train/test splits inflate scores. Tested only on
+  biomass the model has never seen, yield R² drops from 0.66 to −0.18 and
+  O/C R² from 0.63 to 0.23. Hidden near-duplicates in the yield data
+  (651 apparent biomasses, really 118) make this worse.
+- **Physics-aware models:** heat-transfer, kinetic and molar-ratio features plus
+  physical constraints. They reproduce known trends (best oil near 525 °C,
+  less oxygen at higher temperature).
+- **Pyrolysis Advisor:** recommends reactor settings for more oil with less
+  oxygen, flags unfamiliar biomass, and improves with 1 to 2 real experiments
+  (yield error 8.3 → 4.2 wt%).
+
+Report and slides: [`pyrolysis_advisor/docs/`](pyrolysis_advisor/docs/).
+
 ## Quickstart
 
 ```bash
@@ -60,7 +77,8 @@ BioOil-Automation/
 ## Dataset
 
 Source: compiled literature dataset on biomass pyrolysis (320 rows, `data`
-sheet of `data/biooil_pyrolysis_dataset.xlsx`). See
+sheet of `data/biooil_pyrolysis_dataset.xlsx`), from Zhang et al. (2022),
+*Fuel* 312, 122812, doi:10.1016/j.fuel.2021.122812 (Supplementary Table S1). See
 [`ml/reports/eda_summary.md`](ml/reports/eda_summary.md) for missingness,
 distributions, and correlation analysis, and
 [`ml/reports/preprocessing.md`](ml/reports/preprocessing.md) for how

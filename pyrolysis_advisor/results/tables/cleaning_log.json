@@ -1,0 +1,76 @@
+{
+ "D1b_duplicates_removed": [
+  59,
+  101,
+  257,
+  258
+ ],
+ "D1b_rows_raw": 320,
+ "D1b_rows_model": 223,
+ "D1b_feedstocks": 122,
+ "D1b_flagged": [
+  [
+   8,
+   "temperature below 300 C"
+  ],
+  [
+   47,
+   "columns shifted (C ~15%)"
+  ],
+  [
+   48,
+   "columns shifted (C ~15%)"
+  ],
+  [
+   49,
+   "columns shifted (C ~15%)"
+  ],
+  [
+   140,
+   "corrupted row | temperature below 300 C"
+  ],
+  [
+   180,
+   "feed N ~20%"
+  ],
+  [
+   181,
+   "feed N ~20%"
+  ],
+  [
+   221,
+   "char-like feed at 185 C"
+  ],
+  [
+   222,
+   "char-like feed at 185 C"
+  ],
+  [
+   223,
+   "char-like feed at 185 C"
+  ],
+  [
+   224,
+   "char-like feed at 185 C"
+  ],
+  [
+   225,
+   "char-like feed at 185 C"
+  ],
+  [
+   226,
+   "char-like feed at 185 C"
+  ]
+ ],
+ "D3_rows_raw": 1057,
+ "D3_rows_after_dedup": 1046,
+ "D3_groups_exact": 651,
+ "D3_groups_near_dup": 118,
+ "D3_group_counts_by_threshold": {
+  "0.05": 132,
+  "0.1": 120,
+  "0.2": 118,
+  "0.3": 116,
+  "0.5": 107
+ }
+}
