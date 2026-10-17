@@ -1,0 +1,135 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(9, 10, 11, 0.82);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.logoAccent {
+  color: var(--accent);
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.navLink {
+  font-size: 14px;
+  color: var(--muted);
+  transition: color var(--fast) var(--ease);
+}
+
+.navLink:hover {
+  color: var(--text);
+}
+
+.ctaWrap {
+  display: none;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger,
+.burger::before,
+.burger::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  position: relative;
+  transition: transform var(--fast) var(--ease), opacity var(--fast) var(--ease);
+}
+
+.burger::before {
+  position: absolute;
+  top: -6px;
+}
+
+.burger::after {
+  position: absolute;
+  top: 6px;
+}
+
+.burgerOpen {
+  background: transparent;
+}
+
+.burgerOpen::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.burgerOpen::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.mobileNav {
+  max-height: 0;
+  overflow: hidden;
+  border-top: 1px solid transparent;
+  transition: max-height var(--medium) var(--ease), border-color var(--medium) var(--ease);
+}
+
+.mobileNavOpen {
+  max-height: 320px;
+  border-top-color: var(--line);
+}
+
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5) var(--gutter) var(--space-4);
+  gap: var(--space-4);
+}
+
+.mobileLink {
+  font-size: 16px;
+  color: var(--text);
+}
+
+.mobileCta {
+  padding: 0 var(--gutter) var(--space-5);
+}
+
+@media (min-width: 860px) {
+  .nav {
+    display: flex;
+  }
+  .ctaWrap {
+    display: block;
+  }
+  .menuButton {
+    display: none;
+  }
+  .mobileNav {
+    display: none;
+  }
+}

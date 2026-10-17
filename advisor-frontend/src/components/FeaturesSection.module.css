@@ -1,0 +1,24 @@
+.section {
+  padding: var(--space-9) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.heading {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-7);
+  max-width: 24ch;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 860px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

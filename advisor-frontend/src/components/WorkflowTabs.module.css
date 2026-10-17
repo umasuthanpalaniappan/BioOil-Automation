@@ -1,0 +1,121 @@
+.section {
+  padding: var(--space-9) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.heading {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-7);
+  max-width: 20ch;
+}
+
+.tabList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  cursor: pointer;
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+
+.tab:hover {
+  border-color: var(--line-strong);
+}
+
+.tabActive {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.tabNumber {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--faint);
+  flex-shrink: 0;
+}
+
+.tabActive .tabNumber {
+  color: var(--accent);
+}
+
+.tabTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.panelCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.panelTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: var(--space-2);
+}
+
+.panelText {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 48ch;
+}
+
+.exampleLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-top: var(--space-4);
+}
+
+.exampleData {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+}
+
+@media (min-width: 760px) {
+  .tabList {
+    flex-direction: row;
+  }
+  .tab {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+}
+
+@media (min-width: 960px) {
+  .panel {
+    grid-template-columns: 1fr 1fr;
+  }
+}
