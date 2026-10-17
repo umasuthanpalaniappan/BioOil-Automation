@@ -1,4 +1,5 @@
 import { Tag } from "./ui/Tag";
+import { DOMAIN_LIMIT } from "../data/demoData";
 import type { Scenario } from "../data/demoData";
 import styles from "./ProductPreview.module.css";
 
@@ -35,6 +36,10 @@ export function ProductPreview({ scenario, approvalState }: ProductPreviewProps)
               <dd>{scenario.profile.carbonPct}%</dd>
             </div>
             <div>
+              <dt>H</dt>
+              <dd>{scenario.profile.hydrogenPct}%</dd>
+            </div>
+            <div>
               <dt>O</dt>
               <dd>{scenario.profile.oxygenPct}%</dd>
             </div>
@@ -43,6 +48,10 @@ export function ProductPreview({ scenario, approvalState }: ProductPreviewProps)
               <dd>{scenario.profile.nitrogenPct}%</dd>
             </div>
           </dl>
+          <p className={styles.blockSub}>
+            Domain distance {scenario.domainDistance.toFixed(2)} (limit {DOMAIN_LIMIT}) —{" "}
+            {scenario.domainDistance <= DOMAIN_LIMIT ? "in range" : "out of range"}
+          </p>
         </section>
 
         {status === "confident" && recommendation ? (
@@ -71,15 +80,19 @@ export function ProductPreview({ scenario, approvalState }: ProductPreviewProps)
 
         <section className={styles.beforeAfter}>
           <div className={styles.baCol}>
-            <p className={styles.blockLabel}>Before</p>
-            <p className={styles.baValue}>{scenario.baselineYieldWt} wt%</p>
-            <p className={styles.baSub}>O/C {scenario.baselineOC}</p>
+            <p className={styles.blockLabel}>Across all settings</p>
+            <p className={styles.baValue}>
+              {scenario.yieldRangeWt[0]}–{scenario.yieldRangeWt[1]} wt%
+            </p>
+            <p className={styles.baSub}>
+              O/C {scenario.ocRange[0]}–{scenario.ocRange[1]}
+            </p>
           </div>
           <div className={styles.baArrow} aria-hidden="true">
             →
           </div>
           <div className={styles.baCol}>
-            <p className={styles.blockLabel}>After {approvalState !== "approved" && "(projected)"}</p>
+            <p className={styles.blockLabel}>Recommended {approvalState !== "approved" && "(proposed)"}</p>
             {recommendation ? (
               <>
                 <p className={styles.baValue} style={{ color: approvalState === "approved" ? "var(--accent)" : "var(--text)" }}>

@@ -195,15 +195,15 @@ export function DemoModal({ onClose, triggerRef }: DemoModalProps) {
                   </p>
                 ) : decision === "approved" ? (
                   <p className={styles.resultText}>
-                    Recommendation applied in this demo session only. Projected yield moved from{" "}
-                    {selected.baselineYieldWt} wt% to {selected.recommendation?.predictedYieldWt} wt% —
-                    a model estimate, not a measurement. A successful recommendation here does not
-                    confirm real-world performance without an actual pyrolysis run.
+                    Recommendation accepted in this demo session only. The model predicts{" "}
+                    {selected.recommendation?.predictedYieldWt} wt% yield at O/C{" "}
+                    {selected.recommendation?.predictedOC} — an estimate, not a measurement. Accepting
+                    it here does not confirm real-world performance without an actual pyrolysis run.
                   </p>
                 ) : (
                   <p className={styles.resultText}>
-                    Recommendation rejected. No change was made — the feedstock stays at its baseline
-                    conditions ({selected.baselineYieldWt} wt%, O/C {selected.baselineOC}).
+                    Recommendation rejected. Nothing was changed — you keep your current operating
+                    conditions.
                   </p>
                 )}
                 <div className={styles.actionRow}>
