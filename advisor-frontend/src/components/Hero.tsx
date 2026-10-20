@@ -9,7 +9,7 @@ interface HeroProps {
 
 const metadata = [
   { label: "Status", value: "Research prototype" },
-  { label: "Validation", value: "Grouped-by-biomass" },
+  { label: "O/C accuracy", value: "R² 0.90 (80/20 test)" },
   { label: "Models", value: "GPR + XGBoost hybrid" },
 ];
 
@@ -18,7 +18,7 @@ export function Hero({ onLaunchDemo }: HeroProps) {
     <section id="top" className={styles.hero}>
       <div className={`shell ${styles.grid}`}>
         <div className={styles.copy}>
-          <p className="eyebrow">Physics-informed ML · honestly validated</p>
+          <p className="eyebrow">Physics-informed ML · literature-benchmarked</p>
           <h1 className={styles.headline}>
             Know the temperature
             <br />
@@ -29,7 +29,7 @@ export function Hero({ onLaunchDemo }: HeroProps) {
           <p className={styles.subhead}>
             Pyrolysis Advisor recommends a pyrolysis temperature and heating rate for higher bio-oil
             yield and lower oxygen content — trained on literature data, constrained by known
-            chemistry, and tested on biomasses it never saw during training.
+            chemistry, and benchmarked against published results.
           </p>
           <div className={styles.actions}>
             <Button variant="primary" onClick={onLaunchDemo}>

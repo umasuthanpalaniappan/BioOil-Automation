@@ -14,7 +14,7 @@ export function FinalCTA({ onLaunchDemo }: FinalCTAProps) {
           <p className={styles.sub}>
             Pick a sample biomass, review the Advisor's recommendation, and decide whether to approve
             it — all running locally in your browser on pre-computed results from the project's
-            honest, grouped-by-biomass validation.
+            trained models.
           </p>
           <div className={styles.actions}>
             <Button variant="primary" onClick={onLaunchDemo}>

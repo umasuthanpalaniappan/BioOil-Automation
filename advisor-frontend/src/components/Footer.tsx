@@ -10,7 +10,7 @@ export function Footer() {
         <div className={styles.left}>
           <p className={styles.name}>Pyrolysis Advisor</p>
           <p className={styles.tagline}>
-            Physics-informed bio-oil pyrolysis recommendations, honestly validated.
+            Physics-informed bio-oil pyrolysis recommendations, benchmarked against the literature.
           </p>
           <div className={styles.tags}>
             <Tag tone="neutral">Research prototype</Tag>

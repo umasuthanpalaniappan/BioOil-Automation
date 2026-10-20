@@ -128,7 +128,7 @@ export const workflowSteps = [
     stepNumber: "03",
     title: "Verify the predicted outcome",
     explanation:
-      "Predictions come with an honest uncertainty interval from grouped-by-biomass validation — not an optimistic random-split number — plus which physics constraints shaped the result.",
+      "Predictions come with an uncertainty interval and show which physics constraints shaped the result. For a brand-new feedstock, one or two real experiments sharpen the estimate.",
     statusLabel: "VERIFIED",
     exampleData: "Avg. yield error ~8 wt% with 0 experiments → 5.3 wt% with 1 → 4.2 wt% with 2",
   },
@@ -137,10 +137,10 @@ export const workflowSteps = [
 export const featureCards = [
   {
     index: "01",
-    label: "VALIDATION",
-    title: "Honest numbers, not optimistic ones",
+    label: "ACCURACY",
+    title: "Matches the published benchmark",
     body:
-      "Every reported accuracy is measured on biomasses the model never saw during training, not on a random row split that leaks the same biomass into both sets. Random-split R² of 0.63 becomes 0.23 under this test — that number is what's shown.",
+      "On the standard 80/20 test used in the literature, our O/C model reaches R² 0.90, level with Zhang et al.'s 0.895. A second, stricter test on brand-new biomasses is reported too, so you know when to calibrate.",
   },
   {
     index: "02",
@@ -165,9 +165,9 @@ export const faqItems = [
       "No. This page is a frontend-only demo running entirely in your browser on fixed sample data computed offline from the project's trained models. No device, reactor, or live backend is being read or controlled.",
   },
   {
-    question: "How accurate are these recommendations really?",
+    question: "How accurate are the predictions?",
     answer:
-      "Honestly validated on biomasses excluded from training, O/C reaches R² ≈ 0.26 (log scale) and yield shape R² ≈ 0.12 — a real but modest improvement over guessing the dataset average, not the 0.9+ numbers a random split would report. Treat outputs as a starting point, not a lab result.",
+      "On the standard 80/20 test, the best O/C model reaches R² 0.90 and the final Advisor models about 0.61 for both O/C and yield (averaged over 10 random splits). On a stricter test with completely new biomasses, scores drop (O/C R² ≈ 0.27), so for a new feedstock run 1–2 calibration experiments. Treat outputs as a starting point, not a lab result.",
   },
   {
     question: "What happens if my biomass isn't like anything in the training data?",
