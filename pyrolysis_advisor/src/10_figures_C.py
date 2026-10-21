@@ -53,7 +53,7 @@ for suffix, (BG, INK, MUTED, GRID, ACC, CTX) in THEMES.items():
         ax.scatter(t, p, s=26 if log else 14, color=ACC, alpha=0.75 if log else 0.45, edgecolors=BG, linewidths=0.6, zorder=2)
         if log: ax.set_xscale('log'); ax.set_yscale('log')
         ax.set_xlabel(f'Measured {lab}'); ax.set_ylabel(f'Predicted {lab}')
-        ax.set_title(f'{lab.split(" (")[0]} — R² = {r2:.2f}' + (' (log scale)' if log else ''), color=INK, fontsize=13, loc='left', fontweight='bold')
+        ax.set_title('Oxygen (O/C ratio)' if log else 'Bio-oil yield', color=INK, fontsize=13, loc='left', fontweight='bold')
         ax.grid(color=GRID, lw=0.8); ax.set_axisbelow(True)
         for s in ['top', 'right']: ax.spines[s].set_visible(False)
     fig.tight_layout(); fig.savefig(FIG + f'C2_parity{suffix}.png', dpi=200); plt.close(fig)
