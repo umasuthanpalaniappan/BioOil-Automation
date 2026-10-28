@@ -37,8 +37,8 @@ for suffix, (BG, INK, MUTED, GRID, ACC, CTX) in THEMES.items():
         inside = v > 0.7
         ax.text(v - 0.015 if inside else v + 0.012, i, f'{v:.2f}', va='center', ha='right' if inside else 'left', fontsize=12,
                 color=(('#FFFFFF' if suffix else BG) if v == best else '#0E0F10') if inside else INK, fontweight='bold')
-    ax.axvline(0.895, color=INK, lw=1.5, ls=(0, (4, 3)))
-    ax.text(0.895, len(items) - 0.35, 'Zhang et al. 2022: 0.895', ha='right', va='bottom', fontsize=11, color=INK)
+    ax.axvline(0.928, color=INK, lw=1.5, ls=(0, (4, 3)))
+    ax.text(0.928, len(items) - 0.35, 'Zhang et al. 2022 (best O/C, 70/30 split): 0.93', ha='right', va='bottom', fontsize=11, color=INK)
     ax.set_yticks(range(len(items))); ax.set_yticklabels([names.get(m, m) for m, _ in items], color=INK)
     ax.set_xlim(0, 1.05); ax.set_xlabel('Test R² for O/C (held-out 20%)')
     ax.grid(axis='x', color=GRID, lw=0.8); ax.set_axisbelow(True)

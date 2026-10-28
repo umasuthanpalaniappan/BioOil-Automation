@@ -140,7 +140,7 @@ export const featureCards = [
     label: "ACCURACY",
     title: "Matches the published benchmark",
     body:
-      "On the standard 80/20 test used in the literature, our O/C model reaches R² 0.90, level with Zhang et al.'s 0.895. A second, stricter test on brand-new biomasses is reported too, so you know when to calibrate.",
+      "On the standard 80/20 test used in the literature, our O/C model reaches R² 0.90, close to the 0.93 reported by Zhang et al. (2022). A second, stricter test on brand-new biomasses is reported too, so you know when to calibrate.",
   },
   {
     index: "02",
